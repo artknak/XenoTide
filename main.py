@@ -4,7 +4,7 @@ import random
 
 from code.Bullet import Bullet
 from code.Entities import Player, Enemy
-from code.const import SCREEN_WIDTH, SCREEN_HEIGHT
+from code.Const import SCREEN_WIDTH, SCREEN_HEIGHT
 
 pygame.init()
 
@@ -18,10 +18,10 @@ pygame.display.set_icon(icon)
 # background = pygame.image.load('assets/background.png')
 
 # Create player
-player = Player(SCREEN_WIDTH, SCREEN_HEIGHT)
+player = Player()
 
 # Create enemies
-enemies = [Enemy(SCREEN_WIDTH, SCREEN_HEIGHT) for _ in range(10)]
+enemies = [Enemy() for _ in range(10)]
 
 # Create bullet
 bullet = Bullet()
@@ -63,16 +63,12 @@ while running:
 
             # Check for bullet collision
             if bullet_rect.colliderect(enemy_rect):
-                # Play enemy death sound
-                death_sound = mixer.Sound('assets/death_sfx.wav')
-                death_sound.play()
-
                 # Reset bullet
                 bullet.state = 'ready'
 
                 # Respawn enemy at a new random position (like in Enemy.__init__)
-                enemy.x = random.randint(int(enemy.s_width * 0.1), int(enemy.s_width * 0.9))
-                enemy.y = random.randint(int(enemy.s_height * 0.1), int(enemy.s_height * 0.2))
+                enemy.x = random.randint(int(SCREEN_WIDTH * 0.1), int(SCREEN_WIDTH * 0.9))
+                enemy.y = random.randint(int(SCREEN_HEIGHT * 0.1), int(SCREEN_HEIGHT * 0.2))
 
     fps.tick(60)
     pygame.display.flip()

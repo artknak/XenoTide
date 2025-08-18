@@ -1,0 +1,12 @@
+# E
+ENEMY_STEP_DOWN = 40
+ENEMY_MOVE_RATE = 6
+ENEMY_IMG = 'assets/enemy.png'
+
+# P
+PLAYER_MOVE_RATE = 5
+PLAYER_IMG = 'assets/player.png'
+
+# S
+SCREEN_WIDTH = 1280
+SCREEN_HEIGHT = 720

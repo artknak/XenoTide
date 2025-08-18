@@ -1,15 +1,12 @@
 import pygame
 import random
 
+from code.Const import SCREEN_WIDTH, SCREEN_HEIGHT, PLAYER_MOVE_RATE, ENEMY_MOVE_RATE, ENEMY_STEP_DOWN, PLAYER_IMG, \
+    ENEMY_IMG
+
+
 class Entity:
-    def __init__(self, image_path, s_width, s_height, x, y, move_rate):
-        # Load entity image
-        self.img = pygame.image.load(image_path)
-
-        # Stores screen size (used for boundaries / x and y coordinates calcs)
-        self.s_width = s_width
-        self.s_height = s_height
-
+    def __init__(self, x, y, move_rate):
         # Initial position
         self.x = x
         self.y = y
@@ -19,19 +16,16 @@ class Entity:
 
     def draw(self, screen):
         """Draws the entity in the screen."""
-        screen.blit(self.img, (self.x, self.y))
+        pass
 
 
 class Player(Entity):
-    def __init__(self, s_width, s_height):
-        super().__init__(
-            'assets/player.png',
-            s_width=s_width,
-            s_height=s_height,
-            x=(s_width // 2) - 32,  # Horizontally centered (image is 64px, so half = 32)
-            y=int(s_height * 0.8),  # Vertical position = 80% of the screen height
-            move_rate=5
-        )
+    def __init__(self):
+        self.img = pygame.image.load(PLAYER_IMG)
+
+        super().__init__(x=(SCREEN_WIDTH // 2) - self.img.get_width() // 2,
+                         y=int(SCREEN_HEIGHT * 0.8),
+                         move_rate=PLAYER_MOVE_RATE)
 
     def move(self, direction):
         """Makes the player able to move. Sets screen width boundary."""
@@ -41,27 +35,31 @@ class Player(Entity):
             self.x += self.move_rate
 
         # Calculates width boundary
-        self.x = max(0, min(self.x, self.s_width - self.img.get_width()))
+        self.x = max(0, min(self.x, SCREEN_WIDTH - self.img.get_width()))
+
+    def draw(self, screen):
+        screen.blit(self.img, (self.x, self.y))
 
 
 class Enemy(Entity):
-    def __init__(self, s_width, s_height):
-        super().__init__(
-            'assets/enemy.png',
-            s_width=s_width,
-            s_height=s_height,
-            x=random.randint(int(s_width * 0.1), int(s_width * 0.9)),
-            y=random.randint(int(s_height * 0.1), int(s_height * 0.2)),
-            move_rate=6
-        )
+    def __init__(self):
+        self.img = pygame.image.load(ENEMY_IMG)
+
+        super().__init__(x=random.randint(int(SCREEN_WIDTH * 0.1), int(SCREEN_WIDTH * 0.9)),
+                         y=random.randint(int(SCREEN_HEIGHT * 0.1), int(SCREEN_HEIGHT * 0.2)),
+                         move_rate=ENEMY_MOVE_RATE)
         self.dir_x = 1
-        self.step_down = 40
+        self.step_down = ENEMY_STEP_DOWN
 
     def move(self):
         """Makes the player able to move. Sets screen width boundary and step down."""
         self.x += self.move_rate * self.dir_x
 
         # Calculates width boundary
-        if self.x <= 0 or self.x >= self.s_width - self.img.get_width():
+        if self.x <= 0 or self.x >= SCREEN_WIDTH - self.img.get_width():
             self.dir_x *= -1            # If boundary is hit, inverts movement direction
             self.y += self.step_down    # and moves the enemy downwards
+
+    def draw(self, screen):
+        screen.blit(self.img, (self.x, self.y))
+

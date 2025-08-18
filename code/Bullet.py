@@ -23,10 +23,6 @@ class Bullet:
         if self.state == 'ready':
             self.state = 'fired'
 
-            # Bullet sound
-            bullet_sound = mixer.Sound('assets/bullet_sfx.wav')
-            bullet_sound.play()
-
             # Center bullet in the middle of the player
             self.x = player.x + player.img.get_width() // 2 - self.img.get_width() // 2
 
