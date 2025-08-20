@@ -107,7 +107,6 @@ class Game:
                 if result == "clear_enemies":
                     enemies.clear()
                     player.x = math.inf
-                    background.move_rate = 0
 
                     # action = Game.game_over()
 
