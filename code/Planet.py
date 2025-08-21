@@ -1,7 +1,5 @@
 import random
-
-import pygame.image
-
+import pygame
 from code.Const import PLANET_IMG, SCREEN_WIDTH, SCREEN_HEIGHT, BACKGROUND_MOVE_RATE
 
 
@@ -18,7 +16,7 @@ class Planet:
 
     def update(self):
         self.y += self.move_rate
-        if self.y > SCREEN_HEIGHT:  # saiu da tela → reset
+        if self.y > SCREEN_HEIGHT:
             self.reset()
 
     def draw(self, screen):

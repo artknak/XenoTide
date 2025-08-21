@@ -1,5 +1,4 @@
 import pygame
-
 from code.Const import BACKGROUND_IMG, BACKGROUND_MOVE_RATE, SCREEN_HEIGHT
 from code.Planet import Planet
 
@@ -7,11 +6,9 @@ from code.Planet import Planet
 class Background:
     def __init__(self):
         self.img = pygame.image.load(BACKGROUND_IMG)
-
         self.y1 = 0
-        self.y2 = -720
+        self.y2 = -SCREEN_HEIGHT
         self.move_rate = BACKGROUND_MOVE_RATE
-
         self.planet = Planet()
 
     def update(self):
@@ -28,5 +25,8 @@ class Background:
     def draw(self, screen):
         screen.blit(self.img, (0, self.y1))
         screen.blit(self.img, (0, self.y2))
-
         self.planet.draw(screen)
+
+    def stop(self):
+        self.move_rate = 0
+        self.planet.move_rate = 0

@@ -4,7 +4,10 @@ BACKGROUND_MOVE_RATE = 10
 BULLET_IMG = 'assets/images/player/bullet.png'
 BULLET_MOVE_RATE = 10
 
-#
+# C
+COLOR_WHITE = (255, 255, 255)
+
+# D
 DEATH_IMG = 'assets/images/enemy/death.png'
 
 # E
