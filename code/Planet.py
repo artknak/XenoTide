@@ -1,6 +1,7 @@
 import random
 import pygame
-from code.Const import PLANET_IMG, SCREEN_WIDTH, SCREEN_HEIGHT, BACKGROUND_MOVE_RATE
+
+from code.Const import BACKGROUND, SCREEN
 
 
 class Planet:
@@ -8,15 +9,17 @@ class Planet:
         self.reset()
 
     def reset(self):
-        img_path = random.choice(PLANET_IMG)
+        num = random.randint(1, 14)
+        img_path = f"{BACKGROUND['PLANET']}{num}.png"
+
         self.img = pygame.image.load(img_path)
-        self.x = random.randint(int(SCREEN_WIDTH * 0.1), int(SCREEN_WIDTH * 0.9))
-        self.y = SCREEN_HEIGHT * -0.9
-        self.move_rate = random.randint(3, BACKGROUND_MOVE_RATE)
+        self.x = random.randint(int(SCREEN['WIDTH'] * 0.1), int(SCREEN['WIDTH'] * 0.9))
+        self.y = SCREEN['HEIGHT'] * -0.9
+        self.move_rate = random.randint(3, BACKGROUND['MOVE_RATE'])
 
     def update(self):
         self.y += self.move_rate
-        if self.y > SCREEN_HEIGHT:
+        if self.y > SCREEN['HEIGHT']:
             self.reset()
 
     def draw(self, screen):

@@ -1,10 +1,18 @@
+import pygame
+
 from code.Entity import Entity
-from code.Const import BULLET_MOVE_RATE, BULLET_IMG
+from code.Const import BULLET
 
 
 class Bullet(Entity):
     def __init__(self):
-        super().__init__(BULLET_IMG, 0, 0, BULLET_MOVE_RATE)
+        img = pygame.image.load(BULLET['IMG'])
+        super().__init__(
+            img=img,
+            x=0,
+            y=0,
+            move_rate=BULLET['MOVE_RATE']
+        )
         self.state = 'ready'
 
     def fire(self, player):
