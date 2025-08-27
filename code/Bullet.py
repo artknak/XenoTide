@@ -14,6 +14,7 @@ class Bullet(Entity):
             move_rate=BULLET['MOVE_RATE']
         )
         self.state = 'ready'
+        self.sound_played = False
 
     def fire(self, player):
         if self.state == 'ready':
@@ -29,6 +30,9 @@ class Bullet(Entity):
 
             if self.y <= 0:
                 self.state = 'ready'
+                self.sound_played = False
+        else:
+            self.sound_played = False
 
     def draw(self, screen):
         if self.state == 'fired':

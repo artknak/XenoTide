@@ -1,8 +1,9 @@
 import pygame
 
+from code.AudioManager import AudioManager
 from code.Background import Background
 from code.Collision import Collision
-from code.Const import PLAYER, SCREEN
+from code.Const import PLAYER, SCREEN, SOUND, COLOR
 from code.InputHandler import InputHandler
 from code.Menu import Menu
 from code.ScoreManager import ScoreManager
@@ -45,47 +46,86 @@ class Game:
 
     @staticmethod
     def handle_collisions(player, enemies, bullet, score, background):
+        collision_occured = False
+
         for enemy in enemies[:]:
             if bullet.state == 'fired' and Collision.check(bullet, enemy) == 'hit':
                 bullet.state = 'ready'
                 score.add()
+                collision_occured = True
 
             if Collision.check(player, enemy) == 'clear_enemies':
                 enemies.clear()
                 background.stop()
                 player.x = -9999
                 score.save()
+                collision_occured = True
+
+        return collision_occured
+
+
+    @staticmethod
+    def game_over(screen):
+        start_time = pygame.time.get_ticks()
+        font = pygame.font.SysFont('Arial', 60)
+        text = font.render('GAME OVER!', True, COLOR['WHITE'])
+
+        while pygame.time.get_ticks() - start_time < 5000:
+            screen.fill((0, 0, 0))
+            screen.blit(text, ((SCREEN['WIDTH'] - text.get_width()) // 2,
+                               (SCREEN['HEIGHT'] - text.get_height()) // 2))
+            pygame.display.flip()
+            pygame.time.delay(16)  # ~60 FPS
 
 
     @staticmethod
     def run():
         pygame.init()
+        pygame.font.init()
 
-        screen, background, clock, score = Game.setup()
-        Menu.show(screen, score)
-        player, enemies, bullet = Spawner.spawn_entities()
+        while True:
+            screen, background, clock, score = Game.setup()
+            Menu.show(screen, score)
+            player, enemies, bullet = Spawner.spawn_entities()
+            AudioManager.play_music(SOUND['LEVEL'])
 
-        running = True
-        while running:
-            screen.fill((0, 0, 0))
+            running_level = True
 
-            # Input
-            action = InputHandler.process_game(player, bullet)
-            if action == 'quit':
-                score.save()
-                running = False
+            while running_level:
+                screen.fill((0, 0, 0))
 
-            # Update entities
-            Game.update_entities(enemies, bullet, background)
+                # Handle inputs and bullet fire sounds
+                action = InputHandler.process_game(player, bullet)
+                if action == 'esc_pressed':
+                    score.save()
+                    running_level = False
 
-            # Draw entities
-            Game.draw_entities(screen, player, enemies, bullet, background)
+                if action == 'bullet_fired' and not bullet.sound_played:
+                    AudioManager.play_sound(SOUND['SHOOT'], 0.3)
+                    bullet.sound_played = True
 
-            # Check for collisions
-            Game.handle_collisions(player, enemies, bullet, score, background)
+                # Update all entities
+                Game.update_entities(enemies, bullet, background)
 
-            clock.tick(60)
-            pygame.display.flip()
+                # Draw all entities
+                Game.draw_entities(screen, player, enemies, bullet, background)
 
-        pygame.quit()
-        quit()
+                # Handle collisions and collision sounds
+                collision = Game.handle_collisions(player, enemies, bullet, score, background)
+                if collision:
+                    AudioManager.play_sound(SOUND['COLLISION'], 0.1)
+                    if not enemies:
+                        AudioManager.play_music(None)
+                        AudioManager.play_sound(SOUND['GAME_OVER'])
+                        Game.game_over(screen)
+                        running_level = False
+
+                # Draw score on screen
+                score.draw(screen)
+
+                clock.tick(60)
+                pygame.display.flip()
+
+        # pygame.quit()
+        # pygame.font.quit()
+        # quit()

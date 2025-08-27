@@ -28,5 +28,13 @@ ENEMY = {
 BACKGROUND = {
     'IMG': 'assets/images/background/background.png',
     'MOVE_RATE': 10,
-    'PLANET': 'assets/images/background/planets/planet'
+    'PLANET': 'assets/images/background/planets/planet',
+}
+
+SOUND = {
+    'SHOOT': 'assets/sounds/shoot.wav',
+    'COLLISION': 'assets/sounds/collision.wav',
+    'LEVEL': 'assets/sounds/level.mp3',
+    'MENU': 'assets/sounds.menu.mp3',
+    'GAME_OVER': 'assets/sounds/game_over.wav'
 }

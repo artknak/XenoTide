@@ -8,7 +8,11 @@ class InputHandler:
             if event.type == pygame.QUIT:
                 pygame.quit()
                 quit()
+
             if event.type == pygame.KEYDOWN:
+                if event.key == pygame.K_ESCAPE:
+                    pygame.quit()
+                    quit()
                 if event.key == pygame.K_SPACE:
                     return False
 
@@ -18,12 +22,15 @@ class InputHandler:
     def process_game(player, bullet):
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
-                return 'quit'
+                pygame.quit()
+                quit()
+
             if event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_ESCAPE:
-                    return 'quit'
+                    return 'esc_pressed'
                 if event.key == pygame.K_SPACE:
                     bullet.fire(player)
+                    return 'bullet_fired'
 
         keys = pygame.key.get_pressed()
         if keys[pygame.K_LEFT]:
