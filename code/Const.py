@@ -5,11 +5,17 @@ SCREEN = {
 
 COLOR = {
     'WHITE': (255, 255, 255),
+    'PALE_RED': (231, 133, 135),
 }
 
 PLAYER = {
     'IMG': 'assets/images/player/player.png',
     'MOVE_RATE': 5,
+}
+
+FONT = {
+    '04B_30': 'assets/fonts/04B_30__.TTF',
+    'UPHEAVAL': 'assets/fonts/upheavtt.ttf',
 }
 
 BULLET = {
@@ -35,6 +41,7 @@ SOUND = {
     'SHOOT': 'assets/sounds/shoot.wav',
     'COLLISION': 'assets/sounds/collision.wav',
     'LEVEL': 'assets/sounds/level.mp3',
-    'MENU': 'assets/sounds.menu.mp3',
+    'MENU': 'assets/sounds/menu.mp3',
+    'MENU_SELECT': 'assets/sounds/menu_select.wav',
     'GAME_OVER': 'assets/sounds/game_over.wav'
 }
