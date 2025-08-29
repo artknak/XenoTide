@@ -6,23 +6,18 @@ class EventHandler:
 
     ESC_PRESSED = 'esc_pressed'
     BULLET_FIRED = 'bullet_fired'
-
-    @staticmethod
-    def exit_menu():
-        """Quit the game safely."""
-        pygame.quit()
-        quit()
+    QUIT = 'quit'
 
     @staticmethod
     def process_menu():
         """Process events in Menu. Returns False if Game should start."""
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
-                EventHandler.exit_menu()
+                return EventHandler.QUIT
 
             if event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_ESCAPE:
-                    EventHandler.exit_menu()
+                    return EventHandler.QUIT
                 if event.key == pygame.K_SPACE:
                     return False
         return True
@@ -32,7 +27,7 @@ class EventHandler:
         """Process events in Game. Returns event type."""
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
-                EventHandler.exit_menu()
+                return EventHandler.QUIT
 
             if event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_ESCAPE:

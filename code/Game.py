@@ -1,3 +1,5 @@
+import sys
+
 import pygame
 
 from code.AudioManager import AudioManager
@@ -111,6 +113,11 @@ class Game:
 
                 # Handle inputs and bullet fire sounds
                 action = EventHandler.process_game(player, bullet)
+                if action == EventHandler.QUIT:
+                    score.save()
+                    pygame.quit()
+                    sys.exit()
+
                 if action == EventHandler.ESC_PRESSED:
                     score.save()
                     running_level = False

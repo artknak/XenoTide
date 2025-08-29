@@ -1,3 +1,5 @@
+import sys
+
 import pygame
 
 from code.AudioManager import AudioManager
@@ -26,8 +28,7 @@ class Menu:
         best_score = score.get_best()
         AudioManager.play_music(SOUND['MENU'])
 
-        menu_running = True
-        while menu_running:
+        while True:
             screen.blit(bg_img, (0, 0))
 
             # Render texts
@@ -61,8 +62,12 @@ class Menu:
 
             pygame.display.flip()
 
-            # Handle menu input. If process_menu() returns false, Game starts
-            menu_running = EventHandler.process_menu()
+            action = EventHandler.process_menu()
+            if action == EventHandler.QUIT:
+                pygame.quit()
+                sys.exit()
+            if action is False:
+                break
 
         AudioManager.play_sound(SOUND['MENU_SELECT'])
         AudioManager.play_music(None)
