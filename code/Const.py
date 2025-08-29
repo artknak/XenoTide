@@ -1,21 +1,7 @@
-SCREEN = {
-    'WIDTH': 1280,
-    'HEIGHT': 720,
-}
-
-COLOR = {
-    'WHITE': (255, 255, 255),
-    'PALE_RED': (231, 133, 135),
-}
-
-PLAYER = {
-    'IMG': 'assets/images/player/player.png',
-    'MOVE_RATE': 5,
-}
-
-FONT = {
-    '04B_30': 'assets/fonts/04B_30__.TTF',
-    'UPHEAVAL': 'assets/fonts/upheavtt.ttf',
+BACKGROUND = {
+    'IMG': 'assets/images/background/background.png',
+    'MOVE_RATE': 10,
+    'PLANET': 'assets/images/background/planets/planet',
 }
 
 BULLET = {
@@ -23,25 +9,41 @@ BULLET = {
     'MOVE_RATE': 10,
 }
 
+COLOR = {
+    'ALIEN_GREEN': (31, 219, 161),
+    'DARK_ALIEN_GREEN': (6, 66, 49,),
+    'PALE_RED': (231, 133, 135),
+    'WHITE': (255, 255, 255),
+}
+
 ENEMY = {
-    'IMG': 'assets/images/enemy/enemy.png',
     'ACCEL': 0.0005,
     'COUNT': 10,
-    'MOVE_RATE': 6,
+    'IMG': 'assets/images/enemy/enemy.png',
+    'MOVE_RATE': 5,
     'STEP_DOWN': 40,
 }
 
-BACKGROUND = {
-    'IMG': 'assets/images/background/background.png',
-    'MOVE_RATE': 10,
-    'PLANET': 'assets/images/background/planets/planet',
+FONT = {
+    '04B_30': 'assets/fonts/04B_30__.TTF',
+    'UPHEAVAL': 'assets/fonts/upheavtt.ttf',
+}
+
+PLAYER = {
+    'IMG': 'assets/images/player/player.png',
+    'MOVE_RATE': 5,
+}
+
+SCREEN = {
+    'HEIGHT': 720,
+    'WIDTH': 1280,
 }
 
 SOUND = {
-    'SHOOT': 'assets/sounds/shoot.wav',
     'COLLISION': 'assets/sounds/collision.wav',
+    'GAME_OVER': 'assets/sounds/game_over.wav',
     'LEVEL': 'assets/sounds/level.mp3',
     'MENU': 'assets/sounds/menu.mp3',
     'MENU_SELECT': 'assets/sounds/menu_select.wav',
-    'GAME_OVER': 'assets/sounds/game_over.wav'
+    'SHOOT': 'assets/sounds/shoot.wav',
 }

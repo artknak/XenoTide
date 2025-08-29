@@ -7,19 +7,33 @@ from code.Player import Player
 
 
 class Collision:
+    """Static methods to check collision between entities."""
+
+    HIT = 'hit'
+    CLEAR_ENEMIES = 'clear_enemies'
+
     @staticmethod
     def check(ent1, ent2):
-        ent1_rect = ent1.img.get_rect(topleft=(ent1.x, ent1.y))
-        ent2_rect = ent2.img.get_rect(topleft=(ent2.x, ent2.y))
+        """
+        Check for collision between two entities.
 
+        :param ent1: First entity (Bullet or Player).
+        :param ent2: Second entity (Enemy).
+        :return: Collision.HIT, Collision.CLEAR_ENEMIES, or None
+        """
+        ent1.update_rect()
+        ent2.update_rect()
+
+        # Bullet -> Enemy
         if isinstance(ent1, Bullet) and isinstance(ent2, Enemy):
-            if ent1.state == 'fired' and ent1_rect.colliderect(ent2_rect):
-                ent2.x = random.randint(int(SCREEN['WIDTH'] * 0.1), int(SCREEN['WIDTH'] * 0.9))
-                ent2.y = random.randint(int(SCREEN['HEIGHT'] * 0.1), int(SCREEN['HEIGHT'] * 0.2))
-                return 'hit'
+            if ent1.state == ent1.FIRED and ent1.rect.colliderect(ent2.rect):
+                ent2.reset()
+                ent2.update_rect()
+                return Collision.HIT
 
+        # Player -> Enemy
         elif isinstance(ent1, Player) and isinstance(ent2, Enemy):
-            if ent1_rect.colliderect(ent2_rect):
-                return 'clear_enemies'
+            if ent1.rect.colliderect(ent2.rect):
+                return Collision.CLEAR_ENEMIES
 
         return None

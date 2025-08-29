@@ -5,7 +5,13 @@ from code.Const import PLAYER, SCREEN
 
 
 class Player(Entity):
+    """Represent the player with horizontal movement and screen boundaries."""
+
+    LEFT = 'left'
+    RIGHT = 'right'
+
     def __init__(self):
+        """Initialize the player at the bottom center of the screen."""
         img = pygame.image.load(PLAYER['IMG'])
         super().__init__(
             img=img,
@@ -15,11 +21,16 @@ class Player(Entity):
         )
 
     def move(self, direction):
-        if direction == 'left':
+        """
+        Move the player left or right and clamp position within screen boundaries.
+
+        :param direction: 'left' or 'right'
+        """
+        if direction == Player.LEFT:
             self.x -= self.move_rate
-        elif direction == 'right':
+        elif direction == Player.RIGHT:
             self.x += self.move_rate
 
-        # Limite de tela
+        # Keep player inside screen boundaries
         self.x = max(0, min(self.x, SCREEN['WIDTH'] - self.img.get_width()))
         self.update_rect()
