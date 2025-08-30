@@ -11,6 +11,30 @@ It also implements core *Space Invaders-like* mechanics, such as **enemy spawnin
 
 ---
 
+### 📌 How to Play
+
+You can run the game in two different ways:
+
+▶️ **Option 1: Running from source**
+
+1. Make sure you have Python 3.10+ installed.
+2. Install dependencies:
+```bash
+pip install pygame
+```
+3. Run the game:
+```bash
+python main.py
+```
+
+▶️ **Running the .exe (Windows only)**
+
+1. Download the latest release from the [Releases page](https://github.com/artknak/XenoTide/releases "Releases").
+2. Extract the `.zip` file.
+3. Run `XenoTide.exe` — no installation required.
+
+---
+
 ### 🎮 Game Controls
 | Key        | Action                        |
 |------------|-------------------------------|
